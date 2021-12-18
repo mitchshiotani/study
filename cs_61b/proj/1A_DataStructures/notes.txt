@@ -1,0 +1,57 @@
+- addFirst
+
+- sentinel
+- NodeList -> "hello"
+- NodeList -> "world"
+- next -> null
+
+- addLast
+
+- sentinel
+- NodeList -> "hello"
+- NodeList -> "world"
+- next -> null
+
+---- Ideally -----
+
+- addFirst
+
+- sentinel
+- NodeList -> "hello"
+- NodeList -> "world"
+- sentinel
+
+- addLast
+
+- sentinel
+- NodeList -> "hello"
+- NodeList -> "world"
+- next -> null
+
+-----
+
+Ok, I think I'm starting to see. 
+
+Before, 
+
+what I did for addFirst was
+- sentinel.next would be a new NodeList containing the new item
+
+but, if I just do that, the NL after the new NL would still have sentinel as its previous NL. 
+  - so, I needed to change the previous NL for the next next NL to be the new NL. 
+
+what I did for addLast was
+- sentinel.previous would be a new NodeList containing the new item, and its next would be the sentinel. 
+
+but, if I just did that, the sentinel wouldn't know that its previous is the new NodeList.
+the NodeList before the new NodeList also wouldn't know that its next should be the new NL. 
+- how come `sentinel = new NodeList(sentinel, null, sentinel)` doesn't work as expected?
+  - got error:
+  ```
+  Exception in thread "main" java.lang.NullPointerException: Cannot assign field "next" because "this.sentinel.previous.previous" is null
+          at LinkedListDeque.addLast(LinkedListDeque.java:42)
+          at LinkedListDequeTest.addToFirstTest(LinkedListDequeTest.java:13)
+          at LinkedListDequeTest.main(LinkedListDequeTest.java:4)
+  ```
+  - when I do sentinel.previous.previous.next in addLast, it's saying sentinel.previous.previous is null. 
+    - it's giving me the same error with addFirst too, except with sentinel.next.next
