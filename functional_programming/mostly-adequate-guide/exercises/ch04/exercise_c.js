@@ -5,4 +5,7 @@
 // Refactor `max` to not reference any arguments using the helper function `keepHighest`.
 
 // max :: [Number] -> Number
-const max = xs => reduce((acc, x) => (x >= acc ? x : acc), -Infinity, xs);
+// const max = xs => reduce((acc, x) => (x >= acc ? x : acc), -Infinity, xs);
+
+// const keepHighest = (x, y) => (x >= y ? x : y);
+const max = reduce(keepHighest, -Infinity);
