@@ -1,0 +1,9 @@
+- name: Update web servers
+  hosts: webservers
+  become: yes
+  # remote_user: ubuntu
+
+  tasks:
+  - name: Install emacs
+    apt:
+      name: emacs
